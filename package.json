@@ -1,0 +1,65 @@
+{
+  "name": "frontend-fork",
+  "homepage": ".",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "gh-pages": "^4.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.3.5",
+    "typescript": "^4.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "lint-in": "eslint --quiet",
+    "lint-and-fix-in": "eslint --quiet --fix",
+    "check-format-in": "prettier --check .",
+    "fix-format-in": "prettier --write",
+    "lint": "yarn lint-in src",
+    "lint-and-fix": "yarn lint-and-fix-in src",
+    "check-format": "yarn check-format-in .",
+    "fix-format": "yarn fix-format-in .",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/jest": "^28.1.0",
+    "@types/node": "^17.0.23",
+    "@types/react": "^18.0.10",
+    "@types/react-dom": "^18.0.3",
+    "@types/react-query": "^1.2.9",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/webpack-env": "^1.17.0",
+    "@types/styled-components": "^5.1.25",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-functional": "^4.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.6.2"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "src/**/*.{js,jsx,ts,tsx,json}": [
+    "yarn test --bail --findRelatedTests --watchAll=false"
+  ],
+  "*.{ts,tsx}": ["yarn lint-and-fix-in"],
+  "*": ["yarn fix-format-in"]
+}

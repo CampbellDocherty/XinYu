@@ -1,7 +1,7 @@
 # See https://developer.github.com/v3/repos/#edit for all available settings.
 repository:
-  name: frontend-fork
-  description: Happy Birthday Eman!
+  name: xinyu
+  description: Portfolio site for XinYu
   default_branch: main
   private: true
 

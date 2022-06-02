@@ -1,3 +1,3 @@
-# Frontend with github actions for forking
+# Portfolio website for XinYu (Lucy)
 
-Just switch 'frontend-fork' to the name of your app and you should be good to go!
+`yarn intall` and `yarn start` :)

@@ -28,7 +28,7 @@ const useGetSunriseAndSunset = () => {
       fetchApi(
         'https://api.sunrise-sunset.org/json?lat=51.4790545&lng=-0.2820995&date=today'
       ),
-    { enabled: false }
+    { enabled: true }
   );
 };
 

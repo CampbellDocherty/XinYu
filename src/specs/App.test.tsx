@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../Playpiem';
+import App from '../App';
 
 describe('When a user lands on the home page', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('When a user lands on the home page', () => {
   it('shows the sunset time for London', async () => {
     const button = screen.getByText('Yes');
     userEvent.click(button);
-    await screen.findByText('Sunset: 20:00');
+    await screen.findByText('Sunset: 8:22:31 PM');
   });
 });
 

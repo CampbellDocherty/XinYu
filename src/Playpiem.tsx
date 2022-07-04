@@ -6,8 +6,8 @@ const Playpiem = () => {
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
 
-  const { data } = useGetSunriseAndSunset();
-  console.log({ data });
+  const { data, isError, isLoading } = useGetSunriseAndSunset();
+  console.log({ data, isError, isLoading });
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -36,7 +36,7 @@ const Playpiem = () => {
       <button onClick={onClick}>Yes</button>
       <button>No</button>
       {consented && <p>London</p>}
-      {consented && <p>Sunset: 20:00</p>}
+      {consented && <p>Sunset: {data?.results.sunset}</p>}
       {lng && <p>{lng}</p>}
       {lat && <p>{lat}</p>}
     </>

@@ -1,7 +1,7 @@
 # See https://developer.github.com/v3/repos/#edit for all available settings.
 repository:
-  name: xinyu
-  description: Portfolio site for XinYu
+  name: playpiem
+  description: Come back at sunset
   default_branch: main
   private: true
 

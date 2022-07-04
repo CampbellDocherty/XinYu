@@ -6,8 +6,7 @@ const Playpiem = () => {
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
 
-  const { data, isError, isLoading } = useGetSunriseAndSunset();
-  console.log({ data, isError, isLoading });
+  const { data } = useGetSunriseAndSunset();
 
   const getLocation = () => {
     if (!navigator.geolocation) {

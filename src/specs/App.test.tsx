@@ -8,7 +8,9 @@ describe('When a user lands on the home page', () => {
   });
 
   it('asks if we can get their location', () => {
-    screen.getByText('Can we get your location?');
+    screen.getByText(
+      'Can we get your location? If you say no, we will just go with London!'
+    );
   });
 
   it('shows button that allows location access', () => {
@@ -27,6 +29,12 @@ describe('When a user lands on the home page', () => {
 
   it('shows the sunset time for London', async () => {
     const button = screen.getByText('Yes');
+    await userEvent.click(button);
+    await screen.findByText('Sunset: 8:22:31 PM');
+  });
+
+  it('shows the sunset time for London if the user does not want to give their location', async () => {
+    const button = screen.getByText('No');
     await userEvent.click(button);
     await screen.findByText('Sunset: 8:22:31 PM');
   });

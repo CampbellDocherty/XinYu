@@ -35,13 +35,20 @@ const Playpiem = () => {
     getLocation();
   };
 
+  const onClickNo = () => {
+    setLat(LONDON_LAT);
+    setLng(LONDON_LNG);
+  };
+
   const locationFound = !!lng && !!lat;
 
   return (
     <>
-      <h1>Can we get your location?</h1>
+      <h1>
+        Can we get your location? If you say no, we will just go with London!
+      </h1>
       <button onClick={onClick}>Yes</button>
-      <button>No</button>
+      <button onClick={onClickNo}>No</button>
       {isLocating && <p>Locating...</p>}
       {locationFound && <p>London</p>}
       {locationFound && <p>Sunset: {data?.results.sunset}</p>}

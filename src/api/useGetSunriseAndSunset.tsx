@@ -19,8 +19,10 @@ type SunriseAndSunsetResponse = {
   readonly status: SunriseApiStatus;
 };
 
-const useGetSunriseAndSunset = () => {
+const useGetSunriseAndSunset = (lat: number | null, lng: number | null) => {
   const fetchApi = useFetchApi();
+
+  const locationAvailable = !!lat && !!lng;
 
   return useQuery(
     'GET_SUNRISE_AND_SUNSET',
@@ -28,7 +30,7 @@ const useGetSunriseAndSunset = () => {
       fetchApi(
         'https://api.sunrise-sunset.org/json?lat=51.4790545&lng=-0.2820995&date=today'
       ),
-    { enabled: true }
+    { enabled: locationAvailable }
   );
 };
 

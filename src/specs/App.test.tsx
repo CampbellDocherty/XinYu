@@ -21,13 +21,13 @@ describe('When a user lands on the home page', () => {
 
   it('shows London when a user click yes we can have their location', async () => {
     const button = screen.getByText('Yes');
-    userEvent.click(button);
+    await userEvent.click(button);
     await screen.findByText('London');
   });
 
   it('shows the sunset time for London', async () => {
     const button = screen.getByText('Yes');
-    userEvent.click(button);
+    await userEvent.click(button);
     await screen.findByText('Sunset: 8:22:31 PM');
   });
 });

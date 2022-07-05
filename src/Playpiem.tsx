@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
 
+const LONDON_LAT = 51.4790946;
+const LONDON_LNG = -0.2820046;
+
 const Playpiem = () => {
   const [consented, setConsented] = useState(false);
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
 
-  const { data } = useGetSunriseAndSunset();
+  const { data } = useGetSunriseAndSunset(lat, lng);
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      return null;
+      setLat(LONDON_LAT);
+      setLng(LONDON_LNG);
+      return;
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {

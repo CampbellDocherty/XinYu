@@ -5,7 +5,7 @@ const LONDON_LAT = 51.4790946;
 const LONDON_LNG = -0.2820046;
 
 const Playpiem = () => {
-  const [consented, setConsented] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
 
@@ -17,10 +17,12 @@ const Playpiem = () => {
       setLng(LONDON_LNG);
       return;
     } else {
+      setIsLocating(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
+          setIsLocating(false);
         },
         () => {
           return null;
@@ -30,19 +32,19 @@ const Playpiem = () => {
   };
 
   const onClick = () => {
-    setConsented(true);
     getLocation();
   };
+
+  const locationFound = !!lng && !!lat;
 
   return (
     <>
       <h1>Can we get your location?</h1>
       <button onClick={onClick}>Yes</button>
       <button>No</button>
-      {consented && <p>London</p>}
-      {consented && <p>Sunset: {data?.results.sunset}</p>}
-      {lng && <p>{lng}</p>}
-      {lat && <p>{lat}</p>}
+      {isLocating && <p>Locating...</p>}
+      {locationFound && <p>London</p>}
+      {locationFound && <p>Sunset: {data?.results.sunset}</p>}
     </>
   );
 };

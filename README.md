@@ -1,3 +1,3 @@
-# Portfolio website for XinYu (Lucy)
+# Playpiem website for insomniacs
 
 `yarn intall` and `yarn start` :)

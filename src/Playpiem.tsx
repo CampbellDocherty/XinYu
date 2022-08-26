@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
 import getLocation, { LONDON_LAT, LONDON_LNG } from './getLocation';
+import { Container, LocationConsentWrapper } from './styles';
 
 const getLocalTime = (utcTime: string) => {
   const localDateTime = new Date(utcTime);
@@ -13,13 +14,14 @@ const Playpiem = () => {
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
 
-  const { data, isSuccess } = useGetSunriseAndSunset(lat, lng);
+  const { data, isLoading } = useGetSunriseAndSunset(lat, lng);
 
   const onClickYes = () => {
     setIsLocating(true);
     const location = getLocation();
     setLat(location.lat);
     setLng(location.lng);
+    setIsLocating(false);
   };
 
   const onClickNo = () => {
@@ -27,25 +29,29 @@ const Playpiem = () => {
     setLng(LONDON_LNG);
   };
 
-  const locationFound = isSuccess && data;
-
   const localSunsetTime = useMemo(() => {
     if (data) {
-      const sunsetTime = getLocalTime(data.results.sunset);
+      const utcSunset = data.results.sunset;
+      const sunsetTime = getLocalTime(utcSunset);
       return sunsetTime;
     }
   }, [data]);
 
   return (
-    <>
-      <h1>
-        Can we get your location? If you say no, we will just go with London!
-      </h1>
-      <button onClick={onClickYes}>Yes</button>
-      <button onClick={onClickNo}>No</button>
-      {isLocating && !locationFound && <p>Locating...</p>}
-      {locationFound && <p>Sunset: {localSunsetTime}</p>}
-    </>
+    <Container>
+      {!data && !isLoading && (
+        <LocationConsentWrapper>
+          <p>
+            Can we get your location? If you say no, we will just go with
+            London!
+          </p>
+          <button onClick={onClickYes}>Yes</button>
+          <button onClick={onClickNo}>No</button>
+        </LocationConsentWrapper>
+      )}
+      {(isLocating || isLoading) && <p>Locating...</p>}
+      {localSunsetTime && <p>Sunset: {localSunsetTime}</p>}
+    </Container>
   );
 };
 

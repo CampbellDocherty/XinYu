@@ -1,9 +1,21 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
 import getLocation, { LONDON_LAT, LONDON_LNG } from './getLocation';
+import {
+  ButtonWrapper,
+  ConsentButton,
+  Container,
+  LocationConsentWrapper,
+} from './styles';
 
-const getLocalTime = (utcTime: string) => {
+const getLocalSunsetTime = (utcTime: string) => {
   const localDateTime = new Date(utcTime);
+  const localTime = localDateTime.toString().split(' ')[4];
+  return localTime;
+};
+
+const getCurrentTime = () => {
+  const localDateTime = new Date();
   const localTime = localDateTime.toString().split(' ')[4];
   return localTime;
 };
@@ -12,14 +24,16 @@ const Playpiem = () => {
   const [isLocating, setIsLocating] = useState(false);
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
+  const [time, setTime] = useState<string | null>(null);
 
-  const { data, isSuccess } = useGetSunriseAndSunset(lat, lng);
+  const { data, isLoading } = useGetSunriseAndSunset(lat, lng);
 
   const onClickYes = () => {
     setIsLocating(true);
     const location = getLocation();
     setLat(location.lat);
     setLng(location.lng);
+    setIsLocating(false);
   };
 
   const onClickNo = () => {
@@ -27,25 +41,43 @@ const Playpiem = () => {
     setLng(LONDON_LNG);
   };
 
-  const locationFound = isSuccess && data;
-
   const localSunsetTime = useMemo(() => {
     if (data) {
-      const sunsetTime = getLocalTime(data.results.sunset);
+      const utcSunset = data.results.sunset;
+      const sunsetTime = getLocalSunsetTime(utcSunset);
       return sunsetTime;
     }
   }, [data]);
 
+  useEffect(() => {
+    const currentTime = getCurrentTime();
+    setTime(currentTime);
+  }, []);
+
+  const isNightTime = useMemo(() => {
+    if (!time || !localSunsetTime) {
+      return false;
+    }
+    if (time > localSunsetTime) {
+      return true;
+    }
+    return false;
+  }, [time, localSunsetTime]);
+
   return (
-    <>
-      <h1>
-        Can we get your location? If you say no, we will just go with London!
-      </h1>
-      <button onClick={onClickYes}>Yes</button>
-      <button onClick={onClickNo}>No</button>
-      {isLocating && !locationFound && <p>Locating...</p>}
-      {locationFound && <p>Sunset: {localSunsetTime}</p>}
-    </>
+    <Container isNightTime={isNightTime}>
+      {!data && !isLoading && (
+        <LocationConsentWrapper>
+          <p>Can we get your location?</p>
+          <ButtonWrapper>
+            <ConsentButton onClick={onClickYes}>Yes</ConsentButton>
+            <ConsentButton onClick={onClickNo}>No</ConsentButton>
+          </ButtonWrapper>
+        </LocationConsentWrapper>
+      )}
+      {(isLocating || isLoading) && <p>Locating...</p>}
+      {localSunsetTime && <p>Sunset: {localSunsetTime}</p>}
+    </Container>
   );
 };
 

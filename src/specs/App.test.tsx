@@ -7,9 +7,7 @@ describe('When a user lands on the home page', () => {
   });
 
   it('asks if we can get their location', () => {
-    screen.getByText(
-      'Can we get your location? If you say no, we will just go with London!'
-    );
+    screen.getByText('Can we get your location?');
   });
 
   it('shows button that allows location access', () => {

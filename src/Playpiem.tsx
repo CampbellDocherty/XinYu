@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
 import getLocation, { LONDON_LAT, LONDON_LNG } from './getLocation';
-import { Container, LocationConsentWrapper } from './styles';
+import {
+  ButtonWrapper,
+  ConsentButton,
+  Container,
+  LocationConsentWrapper,
+} from './styles';
 
 const getLocalSunsetTime = (utcTime: string) => {
   const localDateTime = new Date(utcTime);
@@ -63,12 +68,11 @@ const Playpiem = () => {
     <Container isNightTime={isNightTime}>
       {!data && !isLoading && (
         <LocationConsentWrapper>
-          <p>
-            Can we get your location? If you say no, we will just go with
-            London!
-          </p>
-          <button onClick={onClickYes}>Yes</button>
-          <button onClick={onClickNo}>No</button>
+          <p>Can we get your location?</p>
+          <ButtonWrapper>
+            <ConsentButton onClick={onClickYes}>Yes</ConsentButton>
+            <ConsentButton onClick={onClickNo}>No</ConsentButton>
+          </ButtonWrapper>
         </LocationConsentWrapper>
       )}
       {(isLocating || isLoading) && <p>Locating...</p>}

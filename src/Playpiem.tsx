@@ -1,10 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
 import getLocation, { LONDON_LAT, LONDON_LNG } from './getLocation';
 import { Container, LocationConsentWrapper } from './styles';
 
-const getLocalTime = (utcTime: string) => {
+const getLocalSunsetTime = (utcTime: string) => {
   const localDateTime = new Date(utcTime);
+  const localTime = localDateTime.toString().split(' ')[4];
+  return localTime;
+};
+
+const getCurrentTime = () => {
+  const localDateTime = new Date();
   const localTime = localDateTime.toString().split(' ')[4];
   return localTime;
 };
@@ -13,6 +19,7 @@ const Playpiem = () => {
   const [isLocating, setIsLocating] = useState(false);
   const [lng, setLng] = useState<number | null>(null);
   const [lat, setLat] = useState<number | null>(null);
+  const [time, setTime] = useState<string | null>(null);
 
   const { data, isLoading } = useGetSunriseAndSunset(lat, lng);
 
@@ -32,13 +39,28 @@ const Playpiem = () => {
   const localSunsetTime = useMemo(() => {
     if (data) {
       const utcSunset = data.results.sunset;
-      const sunsetTime = getLocalTime(utcSunset);
+      const sunsetTime = getLocalSunsetTime(utcSunset);
       return sunsetTime;
     }
   }, [data]);
 
+  useEffect(() => {
+    const currentTime = getCurrentTime();
+    setTime(currentTime);
+  }, []);
+
+  const isNightTime = useMemo(() => {
+    if (!time || !localSunsetTime) {
+      return false;
+    }
+    if (time > localSunsetTime) {
+      return true;
+    }
+    return false;
+  }, [time, localSunsetTime]);
+
   return (
-    <Container>
+    <Container isNightTime={isNightTime}>
       {!data && !isLoading && (
         <LocationConsentWrapper>
           <p>

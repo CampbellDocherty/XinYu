@@ -19,7 +19,7 @@ type SunriseAndSunsetResponse = {
   readonly status: SunriseApiStatus;
 };
 
-const useGetSunriseAndSunset = (lat: number | null, lng: number | null) => {
+const useGetSunriseAndSunset = (lat: string | null, lng: string | null) => {
   const fetchApi = useFetchApi();
 
   const locationAvailable = !!lat && !!lng;

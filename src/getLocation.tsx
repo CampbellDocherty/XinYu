@@ -1,5 +1,5 @@
-export const LONDON_LAT = 51.4790946;
-export const LONDON_LNG = -0.2820046;
+export const LONDON_LAT = '51.4790946';
+export const LONDON_LNG = '-0.2820046';
 const LONDON_POSITION = {
   lat: LONDON_LAT,
   lng: LONDON_LNG,

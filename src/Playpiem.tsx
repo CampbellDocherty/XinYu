@@ -24,8 +24,8 @@ const getCurrentTime = () => {
 
 const Playpiem = () => {
   const [isLocating, setIsLocating] = useState(false);
-  const [lng, setLng] = useState<number | null>(null);
-  const [lat, setLat] = useState<number | null>(null);
+  const [lng, setLng] = useState<string | null>(null);
+  const [lat, setLat] = useState<string | null>(null);
   const [time, setTime] = useState<string | null>(null);
 
   const { data, isLoading } = useGetSunriseAndSunset(lat, lng);

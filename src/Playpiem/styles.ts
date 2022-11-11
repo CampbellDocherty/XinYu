@@ -11,17 +11,26 @@ export const Container = styled.div<{ readonly isNightTime?: boolean }>`
 
   & > p {
     color: ${(props) => (props.isNightTime ? 'white' : 'white')};
-    margin: 48px;
+    margin: 40px;
   }
 
-  & > svg {
-    width: 60px;
-    height: 60px;
+  & > div > svg {
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-
+    z-index: 10;
+    cursor: ${(props) => (props.isNightTime ? 'pointer' : 'auto')};
+    opacity: ${(props) => (props.isNightTime ? '100' : '0')};
+    transition: opacity 1.3s ease-in, cursor 1.3s ease-in;
     :hover {
       opacity: 90%;
     }
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
   }
 
   transition: background-color 2s ease-in;
@@ -44,13 +53,22 @@ export const Disclaimer = styled.p`
   margin-bottom: 24px;
 `;
 
-export const Lock = styled.span<{ readonly unlocked?: boolean }>`
+export const Lock = styled.span<{ readonly isNightTime?: boolean }>`
   width: 24px;
   height: 21px;
   border: 3px solid white;
   border-radius: 5px;
   position: relative;
-  cursor: pointer;
+  cursor: ${(props) => (props.isNightTime ? 'auto' : 'pointer')};
+  transform: ${(props) => (props.isNightTime ? 'rotate(10deg)' : '')};
+  opacity: ${(props) => (props.isNightTime ? '0' : '100')};
+  transition: opacity 1.3s ease-out, cursor 1.3s ease-out;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 
   :after {
     content: '';
@@ -83,11 +101,18 @@ export const Lock = styled.span<{ readonly unlocked?: boolean }>`
       height: 12px;
     }
 
-    bottom: ${(props) => (props.unlocked ? '130%' : '100%')};
-    left: ${(props) => (props.unlocked ? '31%' : '50%')};
-    margin-left: ${(props) => (props.unlocked ? '-11.5px' : '-8px')};
-    transform: ${(props) => (props.unlocked ? 'rotate(-45deg)' : '')};
+    bottom: ${(props) => (props.isNightTime ? '130%' : '100%')};
+    left: ${(props) => (props.isNightTime ? '31%' : '50%')};
+    margin-left: ${(props) => (props.isNightTime ? '-11.5px' : '-8px')};
+    transform: ${(props) => (props.isNightTime ? 'rotate(-45deg)' : '')};
   }
+`;
 
-  transform: ${(props) => (props.unlocked ? 'rotate(10deg)' : '')};
+export const IconWrapper = styled.div`
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

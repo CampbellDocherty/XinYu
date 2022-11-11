@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from '../api/useGetLocation';
 import useGetLocationByIp from '../api/useGetSunriseAndSunset copy';
-// import PlaySvg from './icons/PlaySvg';
-import { CityText, Container, Disclaimer, Lock } from './styles';
+import PlaySvg from './icons/PlaySvg';
+import { CityText, Container, Disclaimer, IconWrapper, Lock } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
 
@@ -66,8 +66,10 @@ const Playpiem = () => {
     return (
       <Container isNightTime={isNightTime}>
         <CityText>{data.city}</CityText>
-        {/* <PlaySvg />  */}
-        <Lock unlocked={isNightTime} />
+        <IconWrapper>
+          <PlaySvg />
+          <Lock isNightTime={isNightTime} />
+        </IconWrapper>
         <p>Sunset: {localSunsetTime}</p>
         <Disclaimer>The location is determined by your ip address</Disclaimer>
       </Container>

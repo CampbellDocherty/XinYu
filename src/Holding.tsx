@@ -1,17 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetLocation';
 import useGetLocationByIp from './api/useGetSunriseAndSunset copy';
 import { Container } from './styles';
+import getCurrentTime from './timeCalculations/getCurrentTime';
+import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
 
 const Holding = () => {
   const [lng, setLng] = useState<string | null>(null);
   const [lat, setLat] = useState<string | null>(null);
+  const [time, setTime] = useState<string | null>(null);
 
   const { data, isLoading, isSuccess } = useGetLocationByIp();
-  const { data: sunData, isSuccess: sunDataSuccess } = useGetSunriseAndSunset(
-    lat,
-    lng
-  );
+  const {
+    data: sunData,
+    isLoading: sunDataLoading,
+    isSuccess: sunDataSuccess,
+  } = useGetSunriseAndSunset(lat, lng);
+
+  const localSunsetTime = useMemo(() => {
+    if (sunData) {
+      const utcSunset = sunData.results.sunset;
+      const sunsetTime = getLocalSunsetTime(utcSunset);
+      return sunsetTime;
+    }
+  }, [sunData]);
 
   useEffect(() => {
     if (data) {
@@ -22,7 +34,22 @@ const Holding = () => {
     }
   }, [data]);
 
-  if (isLoading) {
+  useEffect(() => {
+    const currentTime = getCurrentTime();
+    setTime(currentTime);
+  }, []);
+
+  const isNightTime = useMemo(() => {
+    if (!time || !localSunsetTime) {
+      return false;
+    }
+    if (time > localSunsetTime) {
+      return true;
+    }
+    return false;
+  }, [time, localSunsetTime]);
+
+  if (isLoading || sunDataLoading) {
     return (
       <Container>
         <p>Locating...</p>
@@ -32,11 +59,11 @@ const Holding = () => {
 
   if (isSuccess && sunDataSuccess) {
     return (
-      <Container>
+      <Container isNightTime={isNightTime}>
         <p>{`${data.city}: ${data.loc}`}</p>
         <p>
-          The sun will set at {sunData.results.sunset}, come back then to see
-          the content
+          The sun will set at {localSunsetTime}, come back then to see the
+          content
         </p>
       </Container>
     );

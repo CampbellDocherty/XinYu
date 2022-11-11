@@ -72,7 +72,7 @@ const Playpiem = () => {
     <Container isNightTime={isNightTime}>
       {!data && !isLoading && !isLocating && (
         <LocationConsentWrapper>
-          <p>Can we get your location?</p>
+          <p>Can we use your location?</p>
           <ButtonWrapper>
             <ConsentButton onClick={onClickYes}>Yes</ConsentButton>
             <ConsentButton onClick={onClickNo}>No</ConsentButton>

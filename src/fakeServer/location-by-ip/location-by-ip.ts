@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import fakeServer from '../fakeServer';
 
-const url = `https://ipinfo.io/json?token=a5e5afb9617ec8`;
+const url = `https://ipinfo.io/json`;
 
 const getLocationByIp = () => {
   fakeServer.use(

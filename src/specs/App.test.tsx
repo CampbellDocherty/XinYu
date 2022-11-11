@@ -8,7 +8,7 @@ describe('When a user lands on the home page', () => {
   });
 
   it('asks if we can get their location', () => {
-    screen.getByText('Can we get your location?');
+    screen.getByText('Can we use your location?');
   });
 
   it('shows button that allows location access', () => {
@@ -20,7 +20,7 @@ describe('When a user lands on the home page', () => {
   });
 });
 
-describe('When a user allows or does not allow location services', () => {
+describe('When a user allows location services', () => {
   beforeEach(async () => {
     render(<App />);
     const yesButton = screen.getByText('Yes');

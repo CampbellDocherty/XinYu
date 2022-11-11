@@ -35,3 +35,14 @@ export const ConsentButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
+export const Disclaimer = styled.p`
+  font-size: 12px;
+  opacity: 80%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+`;

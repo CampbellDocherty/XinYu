@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from './api/useGetLocation';
 import useGetLocationByIp from './api/useGetSunriseAndSunset copy';
-import { Container } from './styles';
+import { Container, Disclaimer } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
 
@@ -69,6 +69,7 @@ const Holding = () => {
           The sun will set at {localSunsetTime}, come back then to see the
           content
         </p>
+        <Disclaimer>The location is determined by your ip address</Disclaimer>
       </Container>
     );
   }

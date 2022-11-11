@@ -50,7 +50,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/node": "^18.11.9",
-    "@types/jest": "^28.1.8",
+    "@types/jest": "^29.2.2",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.6",
     "@types/react-query": "^1.2.9",

@@ -65,10 +65,7 @@ const Playpiem = () => {
     return (
       <Container isNightTime={isNightTime}>
         <p>{data.city}</p>
-        <p>
-          The sun will set at {localSunsetTime}, come back then to see the
-          content
-        </p>
+        <p>Sunset: {localSunsetTime}</p>
         <Disclaimer>The location is determined by your ip address</Disclaimer>
       </Container>
     );

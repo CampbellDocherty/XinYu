@@ -11,7 +11,7 @@ const ONE_MINUTE = 60000;
 const Playpiem = () => {
   const [lng, setLng] = useState<string | null>(null);
   const [lat, setLat] = useState<string | null>(null);
-  const [time, setTime] = useState<string | null>(getCurrentTime);
+  const [time, setTime] = useState<number | null>(getCurrentTime);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,7 +48,7 @@ const Playpiem = () => {
     if (!time || !localSunsetTime) {
       return false;
     }
-    if (time > localSunsetTime) {
+    if (time > localSunsetTime.unixTime) {
       return true;
     }
     return false;
@@ -70,7 +70,7 @@ const Playpiem = () => {
           <PlaySvg />
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
-        <p>Sunset: {localSunsetTime}</p>
+        <p>Sunset: {localSunsetTime?.readableTime}</p>
         <Disclaimer>The location is determined by your ip address</Disclaimer>
       </Container>
     );

@@ -11,7 +11,7 @@ describe('When a user lands on the holding page', () => {
   });
 
   it('eventually renders the location', async () => {
-    await screen.findByText('London: 51.5085,-0.1257');
+    await screen.findByText('London');
   });
 
   it('shows the sunset time', async () => {

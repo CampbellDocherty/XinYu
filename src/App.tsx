@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Holding from './Holding';
+import Holding from './Playpiem';
 
 const App: FC = () => {
   const queryClient = new QueryClient({

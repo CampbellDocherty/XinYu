@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import useGetSunriseAndSunset from './api/useGetLocation';
-import useGetLocationByIp from './api/useGetSunriseAndSunset copy';
+import useGetSunriseAndSunset from '../api/useGetLocation';
+import useGetLocationByIp from '../api/useGetSunriseAndSunset copy';
 import { Container, Disclaimer } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
 
 const ONE_MINUTE = 60000;
 
-const Holding = () => {
+const Playpiem = () => {
   const [lng, setLng] = useState<string | null>(null);
   const [lat, setLat] = useState<string | null>(null);
   const [time, setTime] = useState<string | null>(getCurrentTime);
@@ -64,7 +64,7 @@ const Holding = () => {
   if (isSuccess && sunDataSuccess) {
     return (
       <Container isNightTime={isNightTime}>
-        <p>{`${data.city}: ${data.loc}`}</p>
+        <p>{data.city}</p>
         <p>
           The sun will set at {localSunsetTime}, come back then to see the
           content
@@ -77,4 +77,4 @@ const Holding = () => {
   return null;
 };
 
-export default Holding;
+export default Playpiem;

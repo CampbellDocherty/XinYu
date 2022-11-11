@@ -10,6 +10,7 @@ import {
 
 const getLocalSunsetTime = (utcTime: string) => {
   const localDateTime = new Date(utcTime);
+  console.log(localDateTime);
   const localTime = localDateTime.toString().split(' ')[4];
   return localTime;
 };
@@ -28,9 +29,9 @@ const Playpiem = () => {
 
   const { data, isLoading } = useGetSunriseAndSunset(lat, lng);
 
-  const onClickYes = () => {
+  const onClickYes = async () => {
     setIsLocating(true);
-    const location = getLocation();
+    const location = await getLocation();
     setLat(location.lat);
     setLng(location.lng);
     setIsLocating(false);
@@ -66,7 +67,7 @@ const Playpiem = () => {
 
   return (
     <Container isNightTime={isNightTime}>
-      {!data && !isLoading && (
+      {!data && !isLoading && !isLocating && (
         <LocationConsentWrapper>
           <p>Can we get your location?</p>
           <ButtonWrapper>

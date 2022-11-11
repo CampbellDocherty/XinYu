@@ -28,7 +28,7 @@ const useGetSunriseAndSunset = (lat: string | null, lng: string | null) => {
     'GET_SUNRISE_AND_SUNSET',
     (): Promise<SunriseAndSunsetResponse> =>
       fetchApi(
-        `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today&formatted=0`
+        `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today&formatted=1`
       ),
     { enabled: locationAvailable }
   );

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Playpiem from './Playpiem';
+import Holding from './Playpiem';
 
 const App: FC = () => {
   const queryClient = new QueryClient({
@@ -14,7 +14,7 @@ const App: FC = () => {
   });
   return (
     <QueryClientProvider client={queryClient} contextSharing>
-      <Playpiem />
+      <Holding />
     </QueryClientProvider>
   );
 };

@@ -1,0 +1,3 @@
+const IP_LOCATION_TOKEN = process.env.REACT_APP_IP_LOCATION_TOKEN;
+
+export { IP_LOCATION_TOKEN };

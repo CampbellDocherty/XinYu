@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { IP_LOCATION_TOKEN } from '../Playpiem/constants';
 import useFetchApi from './useFetchApi';
 
 type IpLocationResponse = {
@@ -14,10 +15,11 @@ type IpLocationResponse = {
 
 const useGetLocationByIp = () => {
   const fetchApi = useFetchApi();
+  console.log(IP_LOCATION_TOKEN);
   return useQuery(
     'GET_LOCATION_BY_IP',
     (): Promise<IpLocationResponse> =>
-      fetchApi(`https://ipinfo.io/json?token=a5e5afb9617ec8`)
+      fetchApi(`https://ipinfo.io/json?token=${IP_LOCATION_TOKEN}`)
   );
 };
 

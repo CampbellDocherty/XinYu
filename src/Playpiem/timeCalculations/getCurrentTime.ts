@@ -1,7 +1,6 @@
 const getCurrentTime = () => {
-  const localDateTime = new Date();
-  const localTime = localDateTime.toString().split(' ')[4];
-  return localTime;
+  const localUnixTime = new Date().getTime();
+  return localUnixTime;
 };
 
 export default getCurrentTime;

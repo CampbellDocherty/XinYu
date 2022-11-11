@@ -5,23 +5,17 @@ const LONDON_POSITION = {
   lng: LONDON_LNG,
 };
 
-const getLocation = () => {
+const getLocation = async () => {
   if (!navigator.geolocation) {
     return LONDON_POSITION;
-  } else {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        return {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      },
-      () => {
-        return LONDON_POSITION;
-      }
-    );
   }
-  return LONDON_POSITION;
+  const pos: any = await new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+  return {
+    lat: pos.coords.latitude,
+    lng: pos.coords.longitude,
+  };
 };
 
 export default getLocation;

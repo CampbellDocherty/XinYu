@@ -9,4 +9,8 @@ describe('When a user lands on the holding page', () => {
   it('shows a loading state', () => {
     screen.getByText('Locating...');
   });
+
+  it('eventually renders the location', async () => {
+    await screen.findByText('London: 51.5085,-0.1257');
+  });
 });

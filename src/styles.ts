@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.div<{ readonly isNightTime: boolean }>`
+export const Container = styled.div<{ readonly isNightTime?: boolean }>`
   width: 100vw;
   height: 100vh;
   display: flex;

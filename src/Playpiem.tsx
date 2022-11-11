@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import useGetSunriseAndSunset from './api/useGetSunriseAndSunset';
+import useGetSunriseAndSunset from './api/useGetLocation';
+import useGetLocationByIp from './api/useGetSunriseAndSunset copy';
 import getLocation, { LONDON_LAT, LONDON_LNG } from './getLocation';
 import {
   ButtonWrapper,
@@ -28,6 +29,8 @@ const Playpiem = () => {
   const [time, setTime] = useState<string | null>(null);
 
   const { data, isLoading } = useGetSunriseAndSunset(lat, lng);
+  const { data: ipData, isLoading: ipIsLoading } = useGetLocationByIp();
+  console.log(ipData, ipIsLoading);
 
   const onClickYes = async () => {
     setIsLocating(true);

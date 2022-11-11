@@ -15,7 +15,6 @@ type IpLocationResponse = {
 
 const useGetLocationByIp = () => {
   const fetchApi = useFetchApi();
-  console.log(IP_LOCATION_TOKEN);
   return useQuery(
     'GET_LOCATION_BY_IP',
     (): Promise<IpLocationResponse> =>

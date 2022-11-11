@@ -62,6 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
+      REACT_APP_IP_LOCATION_TOKEN: ${{ secrets.REACT_APP_IP_LOCATION_TOKEN }}
     container:
       image: node:16.12
 
@@ -90,6 +91,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_IP_LOCATION_TOKEN: ${{ secrets.REACT_APP_IP_LOCATION_TOKEN }}
 
     steps:
       - name: Checkout

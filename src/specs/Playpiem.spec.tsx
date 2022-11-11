@@ -15,7 +15,7 @@ describe('When a user lands on the holding page', () => {
   });
 
   it('shows the sunset time', async () => {
-    await screen.findByText('The sun will set at', { exact: false });
+    await screen.findByText('Sunset:', { exact: false });
   });
 
   it('shows location disclaimer', async () => {

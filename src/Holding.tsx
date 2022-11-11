@@ -5,10 +5,19 @@ import { Container } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
 
+const ONE_MINUTE = 60000;
+
 const Holding = () => {
   const [lng, setLng] = useState<string | null>(null);
   const [lat, setLat] = useState<string | null>(null);
-  const [time, setTime] = useState<string | null>(null);
+  const [time, setTime] = useState<string | null>(getCurrentTime);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(getCurrentTime);
+    }, ONE_MINUTE);
+    return () => clearInterval(interval);
+  }, []);
 
   const { data, isLoading, isSuccess } = useGetLocationByIp();
   const {
@@ -33,11 +42,6 @@ const Holding = () => {
       setLng(userLng);
     }
   }, [data]);
-
-  useEffect(() => {
-    const currentTime = getCurrentTime();
-    setTime(currentTime);
-  }, []);
 
   const isNightTime = useMemo(() => {
     if (!time || !localSunsetTime) {

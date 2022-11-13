@@ -6,7 +6,7 @@ import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
-import { CityText, Container, Disclaimer, IconWrapper, Lock } from './styles';
+import { CityText, Disclaimer, IconWrapper, Lock } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 
 type SunsetTimeProps = {
@@ -40,11 +40,7 @@ const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
   });
 
   if (isLoading || isRefetching) {
-    return (
-      <Container>
-        <p>Locating...</p>
-      </Container>
-    );
+    return <p>Locating...</p>;
   }
 
   if (isSuccess && localSunsetTime) {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import useGetLocationByIp from '../api/useGetLocation';
 import SunsetTime from './SunsetTime';
-import { Container } from './styles';
 
 const Playpiem = () => {
   const [lng, setLng] = useState<string | null>(null);
@@ -19,19 +18,11 @@ const Playpiem = () => {
   }, [data]);
 
   if (isLoading) {
-    return (
-      <Container>
-        <p>Locating...</p>
-      </Container>
-    );
+    return <p>Locating...</p>;
   }
 
   if (isSuccess && lat && lng) {
-    return (
-      <Container>
-        <SunsetTime lat={lat} lng={lng} city={data.city} />
-      </Container>
-    );
+    return <SunsetTime lat={lat} lng={lng} city={data.city} />;
   }
 
   return null;

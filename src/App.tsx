@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Router from './routers/Router';
+import { Container } from './styles';
 
 const App: FC = () => {
   const queryClient = new QueryClient({
@@ -14,7 +15,9 @@ const App: FC = () => {
   });
   return (
     <QueryClientProvider client={queryClient} contextSharing>
-      <Router />
+      <Container>
+        <Router />
+      </Container>
     </QueryClientProvider>
   );
 };

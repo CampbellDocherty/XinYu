@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import useGetLocationByIp from '../api/useGetLocation';
 import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
-import { ONE_MINUTE } from './constants';
+import { MIDNIGHT_WITHOUT_SECONDS, ONE_MINUTE } from './constants';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
 import { CityText, Container, Disclaimer, IconWrapper, Lock } from './styles';
@@ -25,11 +25,22 @@ const Playpiem = () => {
     data: sunData,
     isLoading: sunDataLoading,
     isSuccess: sunDataSuccess,
+    refetch,
   } = useGetSunriseAndSunset(lat, lng);
 
   useEffect(() => {
-    console.log(time);
-  }, [time]);
+    if (time && data) {
+      const { readableTime } = time;
+      const timeWithoutSeconds = readableTime.split(':').slice(0, -1).join(':');
+
+      const currentTimeIsMidnight =
+        timeWithoutSeconds === MIDNIGHT_WITHOUT_SECONDS;
+
+      if (currentTimeIsMidnight) {
+        refetch();
+      }
+    }
+  }, [time, refetch, data]);
 
   const localSunsetTime: Time | undefined = useMemo(() => {
     if (sunData) {

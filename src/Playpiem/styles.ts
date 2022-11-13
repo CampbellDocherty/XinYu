@@ -17,13 +17,12 @@ export const Container = styled.div<{ readonly isNightTime?: boolean }>`
   & > div > svg {
     width: 30px;
     height: 30px;
-    cursor: pointer;
     z-index: 10;
     cursor: ${(props) => (props.isNightTime ? 'pointer' : 'auto')};
-    opacity: ${(props) => (props.isNightTime ? '100' : '0')};
+    opacity: ${(props) => (props.isNightTime ? '100%' : '0')};
     transition: opacity 1.3s ease-in, cursor 1.3s ease-in;
     :hover {
-      opacity: 90%;
+      opacity: ${(props) => (props.isNightTime ? '90%' : '0')};
     }
     position: absolute;
     margin-left: auto;
@@ -59,7 +58,6 @@ export const Lock = styled.span<{ readonly isNightTime?: boolean }>`
   border: 3px solid white;
   border-radius: 5px;
   position: relative;
-  cursor: ${(props) => (props.isNightTime ? 'auto' : 'pointer')};
   transform: ${(props) => (props.isNightTime ? 'rotate(10deg)' : '')};
   opacity: ${(props) => (props.isNightTime ? '0' : '100')};
   transition: opacity 1.3s ease-out, cursor 1.3s ease-out;

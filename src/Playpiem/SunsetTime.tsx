@@ -6,7 +6,7 @@ import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
-import { CityText, Disclaimer, IconWrapper, Lock } from './styles';
+import { CityText, Disclaimer, IconWrapper, Lock, PlayButton } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 
 type LocationProps = {
@@ -49,7 +49,9 @@ const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
       <>
         <CityText>{city}</CityText>
         <IconWrapper isNightTime={isNightTime}>
-          <PlaySvg />
+          <PlayButton isNightTime={isNightTime}>
+            <PlaySvg />
+          </PlayButton>
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
         <p>Sunset: {localSunsetTime.readableTime}</p>

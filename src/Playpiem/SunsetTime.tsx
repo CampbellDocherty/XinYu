@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
 import { ONE_MINUTE } from './constants';
 import useCalculateIsNightTime from './hooks/useCalculateIsNightTime';
@@ -6,7 +7,7 @@ import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
-import { CityText, Disclaimer, IconWrapper, Lock } from './styles';
+import { CityText, Disclaimer, IconWrapper, Lock, PlayButton } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 
 type LocationProps = {
@@ -17,6 +18,7 @@ type LocationProps = {
 
 const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
   const { lat, lng, city } = location;
+  const navigate = useNavigate();
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
   useEffect(() => {
@@ -44,12 +46,22 @@ const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
     return <p>Locating...</p>;
   }
 
+  const onClick = () => {
+    if (!isNightTime) {
+      return;
+    }
+
+    navigate('/night');
+  };
+
   if (isSuccess && localSunsetTime) {
     return (
       <>
         <CityText>{city}</CityText>
         <IconWrapper isNightTime={isNightTime}>
-          <PlaySvg />
+          <PlayButton onClick={onClick} isNightTime={isNightTime}>
+            <PlaySvg />
+          </PlayButton>
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
         <p>Sunset: {localSunsetTime.readableTime}</p>

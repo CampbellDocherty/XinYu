@@ -97,3 +97,38 @@ export const IconWrapper = styled.div<{ readonly isNightTime: boolean }>`
     text-align: center;
   }
 `;
+
+export const PlayButton = styled.button<{ readonly isNightTime: boolean }>`
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  border-radius: 3px;
+
+  cursor: ${(props) => (props.isNightTime ? 'pointer' : 'auto')};
+  opacity: ${(props) => (props.isNightTime ? '100%' : '0')};
+  transition: opacity 1.3s ease-in, cursor 1.3s ease-in;
+
+  :hover {
+    opacity: ${(props) => (props.isNightTime ? '90%' : '0')};
+  }
+
+  :focus {
+    opacity: ${(props) => (props.isNightTime ? '90%' : '0')};
+    outline: 1px solid white;
+    border: none;
+  }
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+`;

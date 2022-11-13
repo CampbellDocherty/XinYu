@@ -49,14 +49,14 @@ export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
 
   if (isSuccess && localSunsetTime) {
     return (
-      <div>
+      <>
         <CityText>{city}</CityText>
         <IconWrapper isNightTime={isNightTime}>
           <PlaySvg />
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
         <p>Sunset: {localSunsetTime.readableTime}</p>
-      </div>
+      </>
     );
   }
 

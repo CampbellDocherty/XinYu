@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import useGetSunriseAndSunset from '../api/useGetLocation';
-import useGetLocationByIp from '../api/useGetSunriseAndSunset copy';
+import useGetLocationByIp from '../api/useGetLocation';
+import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
+import { ONE_MINUTE } from './constants';
 import PlaySvg from './icons/PlaySvg';
 import { CityText, Container, Disclaimer, IconWrapper, Lock } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 import getLocalSunsetTime from './timeCalculations/getLocalSunsetTime';
-
-const ONE_MINUTE = 60000;
 
 const Playpiem = () => {
   const [lng, setLng] = useState<string | null>(null);

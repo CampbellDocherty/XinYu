@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { Time } from '../schemas';
-import getLocalSunsetTime from '../timeCalculations/getLocalSunsetTime';
+import convertUtcTimeToLocalTime from '../timeCalculations/getLocalSunsetTime';
 
 const useGetLocalTime = (utcTime: string | undefined) => {
   const localTime: Time | undefined = useMemo(() => {
     if (utcTime) {
-      const time = getLocalSunsetTime(utcTime);
+      const time = convertUtcTimeToLocalTime(utcTime);
       return time;
     }
   }, [utcTime]);

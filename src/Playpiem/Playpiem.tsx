@@ -9,9 +9,10 @@ const Playpiem = () => {
   }
 
   if (isSuccess) {
-    const { loc: location } = data;
-    const [lat, lng] = location.split(',');
-    return <SunsetTime lat={lat} lng={lng} city={data.city} />;
+    const { loc, city } = data;
+    const [lat, lng] = loc.split(',');
+    const location = { lat, lng, city };
+    return <SunsetTime location={location} />;
   }
 
   return null;

@@ -9,13 +9,14 @@ import { Time } from './schemas';
 import { CityText, Disclaimer, IconWrapper, Lock } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 
-type SunsetTimeProps = {
+type LocationProps = {
   readonly lat: string;
   readonly lng: string;
   readonly city: string;
 };
 
-const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
+const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
+  const { lat, lng, city } = location;
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
   useEffect(() => {

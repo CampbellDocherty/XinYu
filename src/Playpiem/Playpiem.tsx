@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useGetLocationByIp from '../api/useGetLocation';
-import { SunsetTime } from './SunsetTime';
-import { Container, Disclaimer } from './styles';
+import SunsetTime from './SunsetTime';
+import { Container } from './styles';
 
 const Playpiem = () => {
   const [lng, setLng] = useState<string | null>(null);
@@ -30,7 +30,6 @@ const Playpiem = () => {
     return (
       <Container>
         <SunsetTime lat={lat} lng={lng} city={data.city} />
-        <Disclaimer>The location is determined by your ip address</Disclaimer>
       </Container>
     );
   }

@@ -6,7 +6,7 @@ import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
-import { CityText, Container, IconWrapper, Lock } from './styles';
+import { CityText, Container, Disclaimer, IconWrapper, Lock } from './styles';
 import getCurrentTime from './timeCalculations/getCurrentTime';
 
 type SunsetTimeProps = {
@@ -15,7 +15,7 @@ type SunsetTimeProps = {
   readonly city: string;
 };
 
-export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
+const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
   useEffect(() => {
@@ -56,9 +56,12 @@ export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
         <p>Sunset: {localSunsetTime.readableTime}</p>
+        <Disclaimer>The location is determined by your ip address</Disclaimer>
       </>
     );
   }
 
   return null;
 };
+
+export default SunsetTime;

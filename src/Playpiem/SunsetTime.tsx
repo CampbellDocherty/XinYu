@@ -18,17 +18,17 @@ type SunsetTimeProps = {
 export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
-  const { data, isLoading, isSuccess, refetch, isRefetching } =
-    useGetSunriseAndSunset(lat, lng);
-
-  useRefetchSunDataAtMidnight(time, refetch);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(getCurrentTime);
     }, ONE_MINUTE);
     return () => clearInterval(interval);
   }, []);
+
+  const { data, isLoading, isSuccess, refetch, isRefetching } =
+    useGetSunriseAndSunset(lat, lng);
+
+  useRefetchSunDataAtMidnight(time, refetch);
 
   const localSunsetTime = useGetLocalTime(data?.results.sunset);
   const localSunriseTime = useGetLocalTime(data?.results.sunrise);
@@ -47,7 +47,7 @@ export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
     );
   }
 
-  if (isSuccess) {
+  if (isSuccess && localSunsetTime) {
     return (
       <div>
         <CityText>{city}</CityText>
@@ -55,7 +55,7 @@ export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
           <PlaySvg />
           <Lock isNightTime={isNightTime} />
         </IconWrapper>
-        <p>Sunset: {localSunsetTime?.readableTime}</p>
+        <p>Sunset: {localSunsetTime.readableTime}</p>
       </div>
     );
   }

@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
 import { ONE_MINUTE } from './constants';
+import useCalculateIsNightTime from './hooks/useCalculateIsNightTime';
 import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
@@ -32,17 +33,11 @@ export const SunsetTime = ({ lat, lng, city }: SunsetTimeProps) => {
   const localSunsetTime = useGetLocalTime(data?.results.sunset);
   const localSunriseTime = useGetLocalTime(data?.results.sunrise);
 
-  const isNightTime = useMemo(() => {
-    if (!time || !localSunsetTime || !localSunriseTime) {
-      return false;
-    }
-    const isAfterSunset = time.unixTime > localSunsetTime.unixTime;
-    const isBeforeSunrise = time.unixTime < localSunriseTime.unixTime;
-    if (isBeforeSunrise || isAfterSunset) {
-      return true;
-    }
-    return false;
-  }, [time, localSunsetTime, localSunriseTime]);
+  const isNightTime = useCalculateIsNightTime({
+    time,
+    localSunriseTime,
+    localSunsetTime,
+  });
 
   if (isLoading || isRefetching) {
     return (

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
-import { MIDNIGHT_WITHOUT_SECONDS, ONE_MINUTE } from './constants';
+import { ONE_MINUTE } from './constants';
+import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
 import PlaySvg from './icons/PlaySvg';
 import { Time } from './schemas';
 import { CityText, Container, IconWrapper, Lock } from './styles';
@@ -18,6 +19,12 @@ export const SunsetTime = ({
 }) => {
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
+  const { data, isLoading, isSuccess, refetch } = useGetSunriseAndSunset(
+    lat,
+    lng
+  );
+  useRefetchSunDataAtMidnight(time, refetch);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(getCurrentTime);
@@ -25,42 +32,21 @@ export const SunsetTime = ({
     return () => clearInterval(interval);
   }, []);
 
-  const {
-    data: sunData,
-    isLoading: sunDataLoading,
-    isSuccess: sunDataSuccess,
-    refetch,
-  } = useGetSunriseAndSunset(lat, lng);
-
-  useEffect(() => {
-    if (time) {
-      const { readableTime } = time;
-      const timeWithoutSeconds = readableTime.split(':').slice(0, -1).join(':');
-
-      const currentTimeIsMidnight =
-        timeWithoutSeconds === MIDNIGHT_WITHOUT_SECONDS;
-
-      if (currentTimeIsMidnight) {
-        refetch();
-      }
-    }
-  }, [time, refetch]);
-
   const localSunsetTime: Time | undefined = useMemo(() => {
-    if (sunData) {
-      const utcSunset = sunData.results.sunset;
+    if (data) {
+      const utcSunset = data.results.sunset;
       const sunsetTime = getLocalSunsetTime(utcSunset);
       return sunsetTime;
     }
-  }, [sunData]);
+  }, [data]);
 
   const localSunriseTime: Time | undefined = useMemo(() => {
-    if (sunData) {
-      const utcSunrise = sunData.results.sunrise;
+    if (data) {
+      const utcSunrise = data.results.sunrise;
       const sunriseTime = getLocalSunsetTime(utcSunrise);
       return sunriseTime;
     }
-  }, [sunData]);
+  }, [data]);
   const isNightTime = useMemo(() => {
     if (!time || !localSunsetTime || !localSunriseTime) {
       return false;
@@ -73,7 +59,7 @@ export const SunsetTime = ({
     return false;
   }, [time, localSunsetTime, localSunriseTime]);
 
-  if (sunDataLoading) {
+  if (isLoading) {
     return (
       <Container>
         <p>Locating...</p>
@@ -81,7 +67,7 @@ export const SunsetTime = ({
     );
   }
 
-  if (sunDataSuccess) {
+  if (isSuccess) {
     return (
       <>
         <CityText>{city}</CityText>

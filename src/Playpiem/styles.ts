@@ -1,35 +1,17 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.div<{ readonly isNightTime?: boolean }>`
+export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => (props.isNightTime ? 'black' : 'black')};
+  background-color: black;
 
   & > p {
-    color: ${(props) => (props.isNightTime ? 'white' : 'white')};
+    color: white;
     margin: 40px;
-  }
-
-  & > div > svg {
-    width: 30px;
-    height: 30px;
-    z-index: 10;
-    cursor: ${(props) => (props.isNightTime ? 'pointer' : 'auto')};
-    opacity: ${(props) => (props.isNightTime ? '100%' : '0')};
-    transition: opacity 1.3s ease-in, cursor 1.3s ease-in;
-    :hover {
-      opacity: ${(props) => (props.isNightTime ? '90%' : '0')};
-    }
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
   }
 
   transition: background-color 2s ease-in;
@@ -106,11 +88,29 @@ export const Lock = styled.span<{ readonly isNightTime?: boolean }>`
   }
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.div<{ readonly isNightTime: boolean }>`
   position: relative;
   width: 100px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  & > svg {
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    cursor: ${(props) => (props.isNightTime ? 'pointer' : 'auto')};
+    opacity: ${(props) => (props.isNightTime ? '100%' : '0')};
+    transition: opacity 1.3s ease-in, cursor 1.3s ease-in;
+    :hover {
+      opacity: ${(props) => (props.isNightTime ? '90%' : '0')};
+    }
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
 `;

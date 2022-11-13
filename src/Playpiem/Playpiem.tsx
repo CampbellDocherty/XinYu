@@ -89,9 +89,9 @@ const Playpiem = () => {
 
   if (isSuccess && sunDataSuccess) {
     return (
-      <Container isNightTime={isNightTime}>
+      <Container>
         <CityText>{data.city}</CityText>
-        <IconWrapper>
+        <IconWrapper isNightTime={isNightTime}>
           <PlaySvg />
           <Lock isNightTime={isNightTime} />
         </IconWrapper>

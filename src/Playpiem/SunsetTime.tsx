@@ -6,7 +6,7 @@ import { CityText, Disclaimer, IconWrapper, Lock, PlayButton } from './styles';
 
 const SunsetTime = () => {
   const navigate = useNavigate();
-  const { isNightTime, sunset, city } = useContext(TimeContext);
+  const { isNightTime, sunset, location } = useContext(TimeContext);
 
   const onClick = () => {
     if (!isNightTime) {
@@ -18,7 +18,7 @@ const SunsetTime = () => {
 
   return (
     <>
-      <CityText>{city}</CityText>
+      <CityText>{location.city}</CityText>
       <IconWrapper isNightTime={isNightTime}>
         <PlayButton onClick={onClick} isNightTime={isNightTime}>
           <PlaySvg />

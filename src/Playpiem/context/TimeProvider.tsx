@@ -5,17 +5,17 @@ import { ONE_MINUTE } from '../constants';
 import useCalculateIsNightTime from '../hooks/useCalculateIsNightTime';
 import useGetLocalTime from '../hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from '../hooks/useRefetchSunDataAtMidnight';
-import { Time } from '../schemas';
+import { Location, Time } from '../schemas';
 import getCurrentTime from '../timeCalculations/getCurrentTime';
 import SunsetContext from './TimeContext';
 
 const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
-  const [city, setCity] = useState('');
-  const [location, setLocation] = useState<{
-    readonly lng: string;
-    readonly lat: string;
-  }>({ lng: '', lat: '' });
-  const [time, setTime] = useState<Time | null>(getCurrentTime);
+  const [location, setLocation] = useState<Location>({
+    city: '',
+    lng: '',
+    lat: '',
+  });
+  const [time, setTime] = useState<Time>(getCurrentTime);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,8 +52,7 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
   useEffect(() => {
     if (userHasBeenLocated) {
       const [lat, lng] = data.loc.split(',');
-      setLocation({ lat, lng });
-      setCity(data.city);
+      setLocation({ city: data.city, lat, lng });
     }
   }, [data, userHasBeenLocated]);
 
@@ -62,8 +61,8 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
     isLoading: isLoading || isRefetching,
     isSuccess,
     userHasBeenLocated,
+    location,
     sunset: localSunsetTime?.readableTime,
-    city,
     isNightTime,
   };
 

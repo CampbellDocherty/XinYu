@@ -3,4 +3,10 @@ interface Time {
   readonly readableTime: string;
 }
 
-export type { Time };
+interface Location {
+  readonly city: string;
+  readonly lat: string;
+  readonly lng: string;
+}
+
+export type { Time, Location };

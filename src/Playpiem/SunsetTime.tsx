@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TimeContext from './context/TimeContext';
+import TimeContext from './context/Context';
 import PlaySvg from './icons/PlaySvg';
 import { CityText, Disclaimer, IconWrapper, Lock, PlayButton } from './styles';
 

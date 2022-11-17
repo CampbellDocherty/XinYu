@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { Location } from '../schemas';
 
-interface TimeContextType {
+interface ContextType {
   readonly isLoading: boolean;
   readonly isLocating: boolean;
   readonly userHasBeenLocated: boolean;
@@ -11,7 +11,7 @@ interface TimeContextType {
   readonly sunset: string | undefined;
 }
 
-const TimeContext = createContext<TimeContextType>({
+const Context = createContext<ContextType>({
   isLoading: true,
   isLocating: true,
   isSuccess: false,
@@ -25,4 +25,4 @@ const TimeContext = createContext<TimeContextType>({
   sunset: '',
 });
 
-export default TimeContext;
+export default Context;

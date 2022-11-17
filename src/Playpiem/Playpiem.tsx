@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import SunsetTime from './SunsetTime';
-import TimeContext from './context/TimeContext';
+import TimeContext from './context/Context';
 
 const Playpiem = () => {
   const { isLoading, isLocating, isSuccess, userHasBeenLocated } =

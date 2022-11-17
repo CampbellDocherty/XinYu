@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TimeContext from './context/TimeContext';
+import TimeContext from './context/Context';
 
 const CheckIfNightTime = ({ children }: { readonly children: ReactNode }) => {
   const navigate = useNavigate();

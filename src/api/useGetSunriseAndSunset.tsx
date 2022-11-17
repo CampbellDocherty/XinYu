@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { Location } from '../Playpiem/schemas';
 import useFetchApi from './useFetchApi';
 
 enum SunriseApiStatus {
@@ -19,11 +20,10 @@ type SunriseAndSunsetResponse = {
   readonly status: SunriseApiStatus;
 };
 
-const useGetSunriseAndSunset = (lat: string | null, lng: string | null) => {
+const useGetSunriseAndSunset = (location: Location) => {
   const fetchApi = useFetchApi();
-
-  const locationAvailable = !!lat && !!lng;
-
+  const { lng, lat } = location;
+  const locationAvailable = !!lng && !!lat;
   return useQuery(
     'GET_SUNRISE_AND_SUNSET',
     (): Promise<SunriseAndSunsetResponse> =>

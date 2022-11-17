@@ -6,6 +6,7 @@ interface ContextType {
   readonly isLocating: boolean;
   readonly userHasBeenLocated: boolean;
   readonly isSuccess: boolean;
+  readonly isError: boolean;
   readonly errorFetchingLocation: boolean;
   readonly location: Location;
   readonly isNightTime: boolean | undefined;
@@ -16,6 +17,7 @@ const Context = createContext<ContextType>({
   isLoading: true,
   isLocating: true,
   isSuccess: false,
+  isError: false,
   errorFetchingLocation: false,
   userHasBeenLocated: false,
   isNightTime: undefined,

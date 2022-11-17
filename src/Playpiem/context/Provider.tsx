@@ -41,6 +41,7 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     data: sunData,
     isLoading,
     isSuccess,
+    isError,
     refetch,
     isRefetching,
   } = useGetSunriseAndSunset(location);
@@ -73,6 +74,7 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     isLocating,
     isLoading: isLoading || isRefetching,
     isSuccess,
+    isError,
     errorFetchingLocation,
     userHasBeenLocated,
     location,

@@ -28,4 +28,8 @@ const getSunriseAndSunset = () => {
   );
 };
 
-export { getSunriseAndSunset };
+const getSunriseAndSunset500 = () => {
+  fakeServer.use(rest.get(url, (req, res, ctx) => res(ctx.status(500))));
+};
+
+export { getSunriseAndSunset, getSunriseAndSunset500 };

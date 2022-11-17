@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-interface ContextType {
+interface TimeContextType {
   readonly isLoading: boolean;
   readonly isSuccess: boolean;
   readonly isError: boolean;
@@ -8,7 +8,7 @@ interface ContextType {
   readonly sunset: string | undefined;
 }
 
-const Context = createContext<ContextType>({
+const TimeContext = createContext<TimeContextType>({
   isLoading: true,
   isSuccess: false,
   isError: false,
@@ -16,4 +16,4 @@ const Context = createContext<ContextType>({
   sunset: '',
 });
 
-export default Context;
+export default TimeContext;

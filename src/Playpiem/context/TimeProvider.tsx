@@ -6,10 +6,10 @@ import useGetLocalTime from '../hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from '../hooks/useRefetchSunDataAtMidnight';
 import { Time } from '../schemas';
 import getCurrentTime from '../timeCalculations/getCurrentTime';
-import Context from './Context';
 import LocationContext from './LocationContext';
+import TimeContext from './TimeContext';
 
-const Provider = ({ children }: { readonly children: ReactNode }) => {
+const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
   const { location } = useContext(LocationContext);
   const [time, setTime] = useState<Time>(getCurrentTime);
 
@@ -42,7 +42,9 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     isNightTime,
   };
 
-  return <Context.Provider value={providerData}>{children}</Context.Provider>;
+  return (
+    <TimeContext.Provider value={providerData}>{children}</TimeContext.Provider>
+  );
 };
 
-export default Provider;
+export default TimeProvider;

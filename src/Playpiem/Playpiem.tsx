@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import SunsetTime from './SunsetTime';
 import TimeContext from './context/Context';
+import LocationContext from './context/LocationContext';
 
 const Playpiem = () => {
-  const { isLoading, isLocating, isSuccess, isError } = useContext(TimeContext);
+  const { isLoading, isSuccess, isError } = useContext(TimeContext);
+  const { isLocating } = useContext(LocationContext);
 
   if (isLoading || isLocating) {
     return <p>Locating...</p>;

@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TimeContext from './context/Context';
+import LocationContext from './context/LocationContext';
 import PlaySvg from './icons/PlaySvg';
 import { CityText, Disclaimer, IconWrapper, Lock, PlayButton } from './styles';
 
 const SunsetTime = () => {
   const navigate = useNavigate();
-  const { isNightTime, sunset, location } = useContext(TimeContext);
+  const { isNightTime, sunset } = useContext(TimeContext);
+  const { location } = useContext(LocationContext);
 
   const onClick = () => {
     if (!isNightTime) {

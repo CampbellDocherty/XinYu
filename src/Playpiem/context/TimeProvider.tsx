@@ -36,7 +36,7 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
     isSuccess,
     refetch,
     isRefetching,
-  } = useGetSunriseAndSunset(location.lat, location.lng);
+  } = useGetSunriseAndSunset(location, userHasBeenLocated);
 
   useRefetchSunDataAtMidnight(time, refetch);
 

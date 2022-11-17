@@ -1,26 +1,16 @@
-import { ReactNode, useEffect, useState } from 'react';
-import useGetLocationByIp from '../../api/useGetLocation';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import useGetSunriseAndSunset from '../../api/useGetSunriseAndSunset';
 import { ONE_MINUTE } from '../constants';
 import useCalculateIsNightTime from '../hooks/useCalculateIsNightTime';
 import useGetLocalTime from '../hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from '../hooks/useRefetchSunDataAtMidnight';
-import { Location, Time } from '../schemas';
+import { Time } from '../schemas';
 import getCurrentTime from '../timeCalculations/getCurrentTime';
 import Context from './Context';
-
-const DEFAULT_LONDON_LOCATION = {
-  city: 'London',
-  lng: '	-0.118092',
-  lat: '51.509865',
-};
+import LocationContext from './LocationContext';
 
 const Provider = ({ children }: { readonly children: ReactNode }) => {
-  const [location, setLocation] = useState<Location>({
-    city: '',
-    lng: '',
-    lat: '',
-  });
+  const { location } = useContext(LocationContext);
   const [time, setTime] = useState<Time>(getCurrentTime);
 
   useEffect(() => {
@@ -30,26 +20,13 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const {
-    data,
-    isLoading: isLocating,
-    isSuccess: userHasBeenLocated,
-    isError: errorFetchingLocation,
-  } = useGetLocationByIp();
-
-  const {
-    data: sunData,
-    isLoading,
-    isSuccess,
-    isError,
-    refetch,
-    isRefetching,
-  } = useGetSunriseAndSunset(location);
+  const { data, isLoading, isSuccess, isError, refetch, isRefetching } =
+    useGetSunriseAndSunset(location);
 
   useRefetchSunDataAtMidnight(time, refetch);
 
-  const localSunsetTime = useGetLocalTime(sunData?.results.sunset);
-  const localSunriseTime = useGetLocalTime(sunData?.results.sunrise);
+  const localSunsetTime = useGetLocalTime(data?.results.sunset);
+  const localSunriseTime = useGetLocalTime(data?.results.sunrise);
 
   const isNightTime = useCalculateIsNightTime({
     time,
@@ -57,27 +34,10 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     localSunsetTime,
   });
 
-  useEffect(() => {
-    if (userHasBeenLocated) {
-      const [lat, lng] = data.loc.split(',');
-      setLocation({ city: data.city, lat, lng });
-    }
-  }, [data, userHasBeenLocated]);
-
-  useEffect(() => {
-    if (errorFetchingLocation) {
-      setLocation(DEFAULT_LONDON_LOCATION);
-    }
-  }, [errorFetchingLocation]);
-
   const providerData = {
-    isLocating,
     isLoading: isLoading || isRefetching,
     isSuccess,
     isError,
-    errorFetchingLocation,
-    userHasBeenLocated,
-    location,
     sunset: localSunsetTime?.readableTime,
     isNightTime,
   };

@@ -4,13 +4,13 @@ import TimeContext from './context/TimeContext';
 
 const CheckIfNightTime = ({ children }: { readonly children: ReactNode }) => {
   const navigate = useNavigate();
-  const { isNightTime } = useContext(TimeContext);
+  const { isNightTime, isSuccess } = useContext(TimeContext);
 
   useEffect(() => {
-    if (!isNightTime) {
+    if (isSuccess && !isNightTime) {
       navigate('/');
     }
-  }, [isNightTime, navigate]);
+  }, [isNightTime, navigate, isSuccess]);
 
   return <>{children}</>;
 };

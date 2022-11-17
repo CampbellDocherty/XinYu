@@ -1,13 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react';
 import useGetLocationByIp from '../../api/useGetLocation';
+import { DEFAULT_LONDON_LOCATION } from '../constants';
 import { Location } from '../schemas';
 import LocationContext from './LocationContext';
-
-const DEFAULT_LONDON_LOCATION = {
-  city: 'London',
-  lng: '	-0.118092',
-  lat: '51.509865',
-};
 
 const LocationProvider = ({ children }: { readonly children: ReactNode }) => {
   const [location, setLocation] = useState<Location>({

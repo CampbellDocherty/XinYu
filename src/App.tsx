@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import TimeProvider from './Playpiem/context/TimeProvider';
 import Router from './routers/Router';
 import { Container } from './styles';
 
@@ -15,9 +16,11 @@ const App: FC = () => {
   });
   return (
     <QueryClientProvider client={queryClient} contextSharing>
-      <Container>
-        <Router />
-      </Container>
+      <TimeProvider>
+        <Container>
+          <Router />
+        </Container>
+      </TimeProvider>
     </QueryClientProvider>
   );
 };

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useGetSunriseAndSunset from '../api/useGetSunriseAndSunset';
 import { ONE_MINUTE } from './constants';
+import TimeContext from './context/TimeContext';
 import useCalculateIsNightTime from './hooks/useCalculateIsNightTime';
 import useGetLocalTime from './hooks/useGetLocalTime';
 import useRefetchSunDataAtMidnight from './hooks/useRefetchSunDataAtMidnight';
@@ -19,6 +20,7 @@ type LocationProps = {
 const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
   const { lat, lng, city } = location;
   const navigate = useNavigate();
+  const timeContext = useContext(TimeContext);
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
   useEffect(() => {
@@ -41,6 +43,16 @@ const SunsetTime = ({ location }: { readonly location: LocationProps }) => {
     localSunriseTime,
     localSunsetTime,
   });
+
+  useEffect(() => {
+    console.log(isNightTime);
+    const { setCurrentTime, setIsNightTime, setSunriseTime, setSunsetTime } =
+      timeContext;
+    if (time) setCurrentTime(time);
+    if (localSunriseTime) setSunriseTime(localSunriseTime);
+    if (localSunsetTime) setSunsetTime(localSunsetTime);
+    setIsNightTime(isNightTime);
+  }, [localSunriseTime, localSunsetTime, isNightTime, time, timeContext]);
 
   if (isLoading || isRefetching) {
     return <p>Locating...</p>;

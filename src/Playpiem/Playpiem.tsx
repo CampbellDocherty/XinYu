@@ -6,7 +6,7 @@ const Playpiem = () => {
   const { isLoading, isLocating, isSuccess, userHasBeenLocated } =
     useContext(TimeContext);
 
-  if (isLoading || isLocating) {
+  if (isLoading || isLocating || !isSuccess || !userHasBeenLocated) {
     return <p>Locating...</p>;
   }
 

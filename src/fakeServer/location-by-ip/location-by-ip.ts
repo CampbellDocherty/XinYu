@@ -23,4 +23,8 @@ const getLocationByIp = () => {
   );
 };
 
-export { getLocationByIp };
+const getLocation500 = () => {
+  fakeServer.use(rest.get(url, (req, res, ctx) => res(ctx.status(500))));
+};
+
+export { getLocationByIp, getLocation500 };

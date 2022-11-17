@@ -9,6 +9,12 @@ import { Location, Time } from '../schemas';
 import getCurrentTime from '../timeCalculations/getCurrentTime';
 import Context from './Context';
 
+const DEFAULT_LONDON_LOCATION = {
+  city: 'London',
+  lng: '	-0.118092',
+  lat: '51.509865',
+};
+
 const Provider = ({ children }: { readonly children: ReactNode }) => {
   const [location, setLocation] = useState<Location>({
     city: '',
@@ -28,12 +34,14 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     data,
     isLoading: isLocating,
     isSuccess: userHasBeenLocated,
+    isError: errorFetchingLocation,
   } = useGetLocationByIp();
 
   const {
     data: sunData,
     isLoading,
     isSuccess,
+    isError,
     refetch,
     isRefetching,
   } = useGetSunriseAndSunset(location);
@@ -56,10 +64,18 @@ const Provider = ({ children }: { readonly children: ReactNode }) => {
     }
   }, [data, userHasBeenLocated]);
 
+  useEffect(() => {
+    if (errorFetchingLocation) {
+      setLocation(DEFAULT_LONDON_LOCATION);
+    }
+  }, [errorFetchingLocation]);
+
   const providerData = {
     isLocating,
     isLoading: isLoading || isRefetching,
     isSuccess,
+    isError,
+    errorFetchingLocation,
     userHasBeenLocated,
     location,
     sunset: localSunsetTime?.readableTime,

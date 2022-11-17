@@ -1,5 +1,6 @@
 import { screen, render } from '@testing-library/react';
 import App from '../App';
+import { getLocation500 } from '../fakeServer/location-by-ip/location-by-ip';
 
 describe('When a user lands on the holding page', () => {
   beforeEach(() => {
@@ -20,5 +21,17 @@ describe('When a user lands on the holding page', () => {
 
   it('shows location disclaimer', async () => {
     await screen.findByText('The location is determined by your ip address');
+  });
+});
+
+describe('when the location request fails', () => {
+  beforeEach(() => {
+    getLocation500();
+    render(<App />);
+  });
+
+  it('default to london as the location', async () => {
+    screen.getByText('Locating...');
+    await screen.findByText('London');
   });
 });

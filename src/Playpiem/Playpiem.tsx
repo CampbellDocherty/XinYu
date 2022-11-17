@@ -3,13 +3,14 @@ import SunsetTime from './SunsetTime';
 import TimeContext from './context/TimeContext';
 
 const Playpiem = () => {
-  const { isLoading, isLocating, isSuccess } = useContext(TimeContext);
+  const { isLoading, isLocating, isSuccess, userHasBeenLocated } =
+    useContext(TimeContext);
 
   if (isLoading || isLocating) {
     return <p>Locating...</p>;
   }
 
-  if (isSuccess) {
+  if (isSuccess || userHasBeenLocated) {
     return <SunsetTime />;
   }
 

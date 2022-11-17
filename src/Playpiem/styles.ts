@@ -71,7 +71,9 @@ export const Lock = styled.span<{ readonly isNightTime?: boolean }>`
   }
 `;
 
-export const IconWrapper = styled.div<{ readonly isNightTime: boolean }>`
+export const IconWrapper = styled.div<{
+  readonly isNightTime: boolean | undefined;
+}>`
   position: relative;
   width: 100px;
   height: 50px;
@@ -98,7 +100,9 @@ export const IconWrapper = styled.div<{ readonly isNightTime: boolean }>`
   }
 `;
 
-export const PlayButton = styled.button<{ readonly isNightTime: boolean }>`
+export const PlayButton = styled.button<{
+  readonly isNightTime: boolean | undefined;
+}>`
   position: absolute;
   margin-left: auto;
   margin-right: auto;

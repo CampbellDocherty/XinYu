@@ -1,18 +1,16 @@
-import useGetLocationByIp from '../api/useGetLocation';
+import { useContext } from 'react';
 import SunsetTime from './SunsetTime';
+import TimeContext from './context/TimeContext';
 
 const Playpiem = () => {
-  const { data, isLoading, isSuccess } = useGetLocationByIp();
+  const { isLoading, isLocating, isSuccess } = useContext(TimeContext);
 
-  if (isLoading) {
+  if (isLoading || isLocating) {
     return <p>Locating...</p>;
   }
 
   if (isSuccess) {
-    const { loc, city } = data;
-    const [lat, lng] = loc.split(',');
-    const location = { lat, lng, city };
-    return <SunsetTime location={location} />;
+    return <SunsetTime />;
   }
 
   return null;

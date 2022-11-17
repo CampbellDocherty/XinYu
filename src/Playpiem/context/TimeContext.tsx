@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 interface TimeContextType {
   readonly isLoading: boolean;
+  readonly isLocating: boolean;
   readonly isSuccess: boolean;
   readonly city: string;
   readonly isNightTime: boolean | undefined;
@@ -10,6 +11,7 @@ interface TimeContextType {
 
 const TimeContext = createContext<TimeContextType>({
   isLoading: true,
+  isLocating: true,
   isSuccess: false,
   city: '',
   isNightTime: undefined,

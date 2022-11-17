@@ -15,7 +15,6 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
     readonly lng: string;
     readonly lat: string;
   }>({ lng: '', lat: '' });
-  const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(true);
   const [time, setTime] = useState<Time | null>(getCurrentTime);
 
@@ -31,9 +30,10 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
     isLoading: isLocating,
     isSuccess: locatingSuccess,
   } = useGetLocationByIp();
+
   const {
     data: sunData,
-    isLoading: isLoadingSunData,
+    isLoading,
     isSuccess: sundataSuccess,
     refetch,
     isRefetching,
@@ -49,14 +49,6 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
     localSunriseTime,
     localSunsetTime,
   });
-
-  useEffect(() => {
-    if (!isLocating && !isLoadingSunData && !isRefetching) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-    }
-  }, [isLocating, isLoadingSunData, isRefetching]);
 
   useEffect(() => {
     if (!sundataSuccess && !locatingSuccess) {
@@ -75,7 +67,8 @@ const TimeProvider = ({ children }: { readonly children: ReactNode }) => {
   }, [data, locatingSuccess]);
 
   const providerData = {
-    isLoading,
+    isLocating,
+    isLoading: isLoading || isRefetching,
     isSuccess,
     sunset: localSunsetTime?.readableTime,
     city,
